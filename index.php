@@ -9,13 +9,14 @@ function main(array $params) {
     $outputDirectoryName = $params[1] ?? 'output';
 
     $inputFileData = file($inputFileName);
-    $headers       = array_shift($inputFileData);
+    $headers       = array_shift($inputFileData); // Убрали вехнюю нажпись, засунув ее в переменную
 
     $handledInputData = [];
     foreach ($inputFileData as $inputEntity) {
-        $tmp = explode(',', $inputEntity);
+        $tmp = explode(',', $inputEntity); // исключаем из данных запятые
 
-        $handledInputData[] = array_map('prepare_entity_column', $tmp);
+        $handledInputData[] = array_map('prepare_entity_column', $tmp); // Применяем функцию,
+                                                                                // которая убирает все ковычки
     }
 
     $saintWordEntities = array_filter(
