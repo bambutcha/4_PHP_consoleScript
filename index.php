@@ -29,7 +29,13 @@ function main(array $params) {
         'is_city_country_same_character'
     );
 
+    $asiancity = array_filter(
+        $handledInputData,
+        'is_this_an_asian_city'
+    );
+
     mkdir($outputDirectoryName);
+
     $outputFile = fopen("$outputDirectoryName/saint_word_entities.csv", 'w');
     foreach ($saintWordEntities as $entity) {
         fputcsv($outputFile, $entity);
@@ -37,6 +43,11 @@ function main(array $params) {
 
     $outputFile = fopen("$outputDirectoryName/same_character_city_country.csv", 'w');
     foreach ($sameCharacterCityCountry as $entity) {
+        fputcsv($outputFile, $entity);
+    }
+
+    $outputFile = fopen("$outputDirectoryName/asian_city.csv", 'w');
+    foreach ($asiancity as $entity) {
         fputcsv($outputFile, $entity);
     }
 }
@@ -51,5 +62,27 @@ function is_city_country_same_character(array $entity): bool {
 
 function prepare_entity_column(string $value): string {
     return trim($value, '"' . PHP_EOL);
+}
+
+function is_this_an_asian_city(array $entity): bool {
+    $lat_east   = 66.05;
+    $lng_east   = 169.4;
+    $lat_north  = 77.43;
+    $lng_north  = 104.18;
+    $lat_west   = 39.29;
+    $lng_west   = 26.04;
+    $lat_south  = 1.16;
+    $lng_south  = 103.30;
+
+    $lat = (float)$entity[1];
+    $lng = (float)$entity[2];
+
+    if (($lat_north >= $lat) && ($lat >= $lat_south)) {
+        if (($lng_east >= $lng) && ($lng >= $lng_west)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
