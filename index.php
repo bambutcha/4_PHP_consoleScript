@@ -11,13 +11,13 @@ function main(array $params) {
     $inputFileData = file($inputFileName);
     $headers       = array_shift($inputFileData); // Removed the top bottom one and put it in a variable
 
-    $header_array = explode(',', $headers);
+    $headersArray = explode(',', $headers);
     $header_array = array_map(function($entity){
         return trim($entity, '"');
-    }, $header_array);
-    $header_array = array_map(function($entity){
+    }, $headersArray);
+    $headersArray = array_map(function($entity){
         return trim($entity, "\"\n");
-    }, $header_array);
+    }, $headersArray);
 
     $handledInputData = [];
     foreach ($inputFileData as $inputEntity) {
@@ -95,58 +95,58 @@ function main(array $params) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($saintWordEntities, $outputDirectoryName, "saint_word_entities.csv", $header_array);
+    fopen_write_with_header($saintWordEntities, $outputDirectoryName, "saint_word_entities.csv", $headersArray);
 
     /*/ $outputFile = fopen("$outputDirectoryName/same_character_city_country.csv", 'w');
     foreach ($sameCharacterCityCountry as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($sameCharacterCityCountry, $outputDirectoryName, "same_character_city_country.csv", $header_array);
+    fopen_write_with_header($sameCharacterCityCountry, $outputDirectoryName, "same_character_city_country.csv", $headersArray);
 
     /*/ $outputFile = fopen("$outputDirectoryName/asian_city.csv", 'w');
     foreach ($asianCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($asianCity, $outputDirectoryName, "asian_city.csv", $header_array);
+    fopen_write_with_header($asianCity, $outputDirectoryName, "asian_city.csv", $headersArray);
 
     /*/ $outputFile = fopen("$outputDirectoryName/european_city.csv", 'w');
     foreach ($europeanCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($europeanCity, $outputDirectoryName, "european_city.csv", $header_array);
+    fopen_write_with_header($europeanCity, $outputDirectoryName, "european_city.csv", $headersArray);
 
     /*/ $outputFile = fopen("$outputDirectoryName/australian_city.csv", 'w');
     foreach ($australianCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($australianCity, $outputDirectoryName, "australian_city.csv", $header_array);
+    fopen_write_with_header($australianCity, $outputDirectoryName, "australian_city.csv", $headersArray);
 
     /*/ $outputFile = fopen("$outputDirectoryName/african_city.csv", 'w');
     foreach ($africanCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($africanCity, $outputDirectoryName, "african_city.csv", $header_array);
+    fopen_write_with_header($africanCity, $outputDirectoryName, "african_city.csv", $headersArray);
 
     /*/ $outputFile = fopen("$outputDirectoryName/north_american_city.csv", 'w');
     foreach ($northAmericaCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($northAmericaCity, $outputDirectoryName, "north_american_city.csv", $header_array);
+    fopen_write_with_header($northAmericaCity, $outputDirectoryName, "north_american_city.csv", $headersArray);
 
     /*/ $outputFile = fopen("$outputDirectoryName/south_american_city.csv", 'w');
     foreach ($southAmericaCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($southAmericaCity, $outputDirectoryName, "south_american_city.csv", $header_array);
+    fopen_write_with_header($southAmericaCity, $outputDirectoryName, "south_american_city.csv", $headersArray);
 
-    fopen_write_with_header($australianCity, $outputDirectoryName, "australian_city.csv", $header_array);
+    fopen_write_with_header($australianCity, $outputDirectoryName, "australian_city.csv", $headersArray);
 
     $outputFile = fopen("$outputDirectoryName/counter.txt", 'w');
     fwrite($outputFile, $counterText);
@@ -188,14 +188,14 @@ function is_this_an_asian_city(array $entity): bool {
 }
 
 function is_this_a_europe_city(array $entity): bool {
-    $lat_east   = 67.45;
-    $lng_east   = 66.13;
-    $lat_north  = 71.08;
-    $lng_north  = 27.39;
-    $lat_west   = 38.46;
-    $lng_west   = -9.29;
-    $lat_south  = 36.00;
-    $lng_south  = -5.36;
+    $lat_east = 67.45;
+    $lng_east = 66.13;
+    $lat_north = 71.08;
+    $lng_north = 27.39;
+    $lat_west = 38.46;
+    $lng_west = -9.29;
+    $lat_south = 36.00;
+    $lng_south = -5.36;
 
     $lat = (float)$entity[1];
     $lng = (float)$entity[2];
@@ -210,14 +210,14 @@ function is_this_a_europe_city(array $entity): bool {
 }
 
 function is_this_an_african_city(array $entity): bool {
-    $lat_east   = 10.25;
-    $lng_east   = 51.21;
-    $lat_north  = 77.43;
-    $lng_north  = 104.18;
-    $lat_west   = 39.29;
-    $lng_west   = 26.10;
-    $lat_south  = 1.16;
-    $lng_south  = -103.3;
+    $lat_east = 10.25;
+    $lng_east = 51.21;
+    $lat_north = 77.43;
+    $lng_north = 104.18;
+    $lat_west = 39.29;
+    $lng_west = 26.10;
+    $lat_south = 1.16;
+    $lng_south = -103.3;
 
     $lat = (float)$entity[1];
     $lng = (float)$entity[2];
@@ -232,14 +232,14 @@ function is_this_an_african_city(array $entity): bool {
 }
 
 function is_this_a_north_american_city(array $entity): bool {
-    $lat_east   = 52.24;
-    $lng_east   = -55.40;
-    $lat_north  = 71.50;
-    $lng_north  = -94.45;
-    $lat_west   = 65.35;
-    $lng_west   = -168.00;
-    $lat_south  = 7.13;
-    $lng_south  = -80.52;
+    $lat_east = 52.24;
+    $lng_east = -55.40;
+    $lat_north = 71.50;
+    $lng_north = -94.45;
+    $lat_west = 65.35;
+    $lng_west = -168.00;
+    $lat_south = 7.13;
+    $lng_south = -80.52;
 
     $lat = (float)$entity[1];
     $lng = (float)$entity[2];
@@ -254,14 +254,14 @@ function is_this_a_north_american_city(array $entity): bool {
 }
 
 function is_this_a_south_american_city(array $entity): bool {
-    $lat_east   = -7.09;
-    $lng_east   = -34.47;
-    $lat_north  = 12.00;
-    $lng_north  = -72.00;
-    $lat_west   = -4.40;
-    $lng_west   = -81.20;
-    $lat_south  = -53.54;
-    $lng_south  = -71.18;
+    $lat_east = -7.09;
+    $lng_east = -34.47;
+    $lat_north = 12.00;
+    $lng_north = -72.00;
+    $lat_west = -4.40;
+    $lng_west = -81.20;
+    $lat_south = -53.54;
+    $lng_south = -71.18;
 
     $lat = (float)$entity[1];
     $lng = (float)$entity[2];
@@ -276,14 +276,14 @@ function is_this_a_south_american_city(array $entity): bool {
 }
 
 function is_this_an_australian_city(array $entity): bool {
-    $lat_east   = -28.38;
-    $lng_east   = 153.38;
-    $lat_north  = -10.41;
-    $lng_north  = 142.31;
-    $lat_west   = -26.09;
-    $lng_west   = 113.09;
-    $lat_south  = -39.08;
-    $lng_south  = 146.22;
+    $lat_east = -28.38;
+    $lng_east = 153.38;
+    $lat_north = -10.41;
+    $lng_north = 142.31;
+    $lat_west = -26.09;
+    $lng_west = 113.09;
+    $lat_south = -39.08;
+    $lng_south = 146.22;
 
     $lat = (float)$entity[1];
     $lng = (float)$entity[2];
