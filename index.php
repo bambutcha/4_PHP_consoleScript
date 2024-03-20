@@ -12,7 +12,7 @@ function main(array $params) {
     $headers       = array_shift($inputFileData); // Removed the top bottom one and put it in a variable
 
     $headersArray = explode(',', $headers);
-    $header_array = array_map(function($entity){
+    $headersArray = array_map(function($entity){
         return trim($entity, '"');
     }, $headersArray);
     $headersArray = array_map(function($entity){
