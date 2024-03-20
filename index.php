@@ -12,11 +12,12 @@ function main(array $params) {
     $headers       = array_shift($inputFileData); // Removed the top bottom one and put it in a variable
 
     $header_array = explode(',', $headers);
-    $header_array = array_map(function($item){
-        return trim($item, '"');
+    $header_array = array_map(function($entity){
+        return trim($entity, '"');
     }, $header_array);
-
-    var_dump($header_array);
+    $header_array = array_map(function($entity){
+        return trim($entity, "\"\n");
+    }, $header_array);
 
     $handledInputData = [];
     foreach ($inputFileData as $inputEntity) {
