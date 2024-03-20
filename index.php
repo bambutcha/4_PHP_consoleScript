@@ -71,9 +71,7 @@ function main(array $params) {
 
     $southamericacounter = count($southAmericaCity);
 
-    $cnttext = "Азиатских городов - $asiancounter\nЕвропейских городов - $europeancounter\n
-    Африканских городов - $africancounter\nВ Северной Америке - $northamericacounter городов\n
-    В Южной Америке - $southamericacounter городов";
+    $cnttext = "Азиатских городов - $asiancounter\nЕвропейских городов - $europeancounter\nАфриканских городов - $africancounter\nВ Северной Америке - $northamericacounter городов\nВ Южной Америке - $southamericacounter городов";
 
     
     mkdir($outputDirectoryName);
