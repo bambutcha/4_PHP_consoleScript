@@ -9,14 +9,14 @@ function main(array $params) {
     $outputDirectoryName = $params[1] ?? 'output';
 
     $inputFileData = file($inputFileName);
-    $headers       = array_shift($inputFileData); // Убрали вехнюю нажпись, засунув ее в переменную
+    $headers       = array_shift($inputFileData); // Removed the top bottom one and put it in a variable
 
     $handledInputData = [];
     foreach ($inputFileData as $inputEntity) {
-        $tmp = explode(',', $inputEntity); // исключаем из данных запятые
+        $tmp = explode(',', $inputEntity); // Remove commas from the data
 
-        $handledInputData[] = array_map('prepare_entity_column', $tmp); // Применяем функцию,
-                                                                                // которая убирает все ковычки
+        $handledInputData[] = array_map('prepare_entity_column', $tmp); // We apply the function
+                                                                                // which removes all quotes
     }
 
     $saintWordEntities = array_filter(
@@ -34,90 +34,113 @@ function main(array $params) {
         'is_this_an_asian_city'
     );
 
-    $asiancounter = count($asianCity);
+    $asianCounter = count($asianCity);
 
     $europeanCity = array_filter(
         $handledInputData,
         'is_this_a_europe_city'
     );
 
-    $europeancounter = count($europeanCity);
+    $europeanCounter = count($europeanCity);
 
     $australianCity = array_filter(
         $handledInputData,
         'is_this_an_australian_city'
     );
 
-    $australiancounter = count($australianCity);
+    $australianСounter = count($australianCity);
 
     $africanCity = array_filter(
         $handledInputData,
         'is_this_an_african_city'
     );
 
-    $africancounter = count($africanCity);
+    $africanСounter = count($africanCity);
 
     $northAmericaCity = array_filter(
         $handledInputData,
         'is_this_a_north_american_city'
     );
 
-    $northamericacounter = count($northAmericaCity);
+    $northАmericaСounter = count($northAmericaCity);
 
     $southAmericaCity = array_filter(
         $handledInputData,
         'is_this_a_south_american_city'
     );
 
-    $southamericacounter = count($southAmericaCity);
+    $southАmericaСounter = count($southAmericaCity);
 
-    $cnttext = "Азиатских городов - $asiancounter\nЕвропейских городов - $europeancounter\nАфриканских городов - $africancounter\nВ Северной Америке - $northamericacounter городов\nВ Южной Америке - $southamericacounter городов";
+    $counterText = implode(PHP_EOL, [
+        "В Азии - " . $asianCounter . " городов",
+        "В Европе - " . $europeanCounter . " городов",
+        "В Африке - " . $africanСounter . " городов",
+        "В Северной Америке - " . $northАmericaСounter . " городов",
+        "В Южной Америке - " . $southАmericaСounter . " городов",
+        "В Австралии - " . $australianСounter . " городов"
+    ]);
 
     
     mkdir($outputDirectoryName);
 
-    $outputFile = fopen("$outputDirectoryName/saint_word_entities.csv", 'w');
+    /*/ $outputFile = fopen("$outputDirectoryName/saint_word_entities.csv", 'w');
     foreach ($saintWordEntities as $entity) {
         fputcsv($outputFile, $entity);
-    }
+    } /*/
 
-    $outputFile = fopen("$outputDirectoryName/same_character_city_country.csv", 'w');
+    fopen_write($saintWordEntities, $outputDirectoryName, "saint_word_entities.csv");
+
+    /*/ $outputFile = fopen("$outputDirectoryName/same_character_city_country.csv", 'w');
     foreach ($sameCharacterCityCountry as $entity) {
         fputcsv($outputFile, $entity);
-    }
+    } /*/
 
-    $outputFile = fopen("$outputDirectoryName/asian_city.csv", 'w');
+    fopen_write($sameCharacterCityCountry, $outputDirectoryName, "same_character_city_country.csv");
+
+    /*/ $outputFile = fopen("$outputDirectoryName/asian_city.csv", 'w');
     foreach ($asianCity as $entity) {
         fputcsv($outputFile, $entity);
-    }
+    } /*/
 
-    $outputFile = fopen("$outputDirectoryName/european_city.csv", 'w');
+    fopen_write_with_header($asianCity, $outputDirectoryName, "asian_city.csv", $headers);
+
+    /*/ $outputFile = fopen("$outputDirectoryName/european_city.csv", 'w');
     foreach ($europeanCity as $entity) {
         fputcsv($outputFile, $entity);
-    }
+    } /*/
 
-    $outputFile = fopen("$outputDirectoryName/australian_city.csv", 'w');
+    fopen_write_with_header($europeanCity, $outputDirectoryName, "european_city.csv", $headers);
+
+    /*/ $outputFile = fopen("$outputDirectoryName/australian_city.csv", 'w');
     foreach ($australianCity as $entity) {
         fputcsv($outputFile, $entity);
-    }
+    } /*/
 
-    $outputFile = fopen("$outputDirectoryName/african_city.csv", 'w');
+    fopen_write_with_header($australianCity, $outputDirectoryName, "australian_city.csv", $headers);
+
+    /*/ $outputFile = fopen("$outputDirectoryName/african_city.csv", 'w');
     foreach ($africanCity as $entity) {
         fputcsv($outputFile, $entity);
-    }
+    } /*/
 
-    $outputFile = fopen("$outputDirectoryName/north_american_city.csv", 'w');
+    fopen_write_with_header($africanCity, $outputDirectoryName, "african_city.csv", $headers);
+
+    /*/ $outputFile = fopen("$outputDirectoryName/north_american_city.csv", 'w');
     foreach ($northAmericaCity as $entity) {
         fputcsv($outputFile, $entity);
-    }
+    } /*/
 
-    $outputFile = fopen("$outputDirectoryName/south_american_city.csv", 'w');
+    fopen_write_with_header($northAmericaCity, $outputDirectoryName, "north_american_city.csv", $headers);
+
+    /*/ $outputFile = fopen("$outputDirectoryName/south_american_city.csv", 'w');
     foreach ($southAmericaCity as $entity) {
         fputcsv($outputFile, $entity);
-    }
+    } /*/
+
+    fopen_write_with_header($southAmericaCity, $outputDirectoryName, "south_american_city.csv", $headers);
 
     $outputFile = fopen("$outputDirectoryName/counter.txt", 'w');
-    fwrite($outputFile, $cnttext);
+    fwrite($outputFile, $counterText);
     fclose($outputFile);
 }
 
@@ -134,17 +157,17 @@ function prepare_entity_column(string $value): string {
 }
 
 function is_this_an_asian_city(array $entity): bool {
-    $lat_east   = 66.05;
-    $lng_east   = 169.4;
-    $lat_north  = 77.43;
-    $lng_north  = 104.18;
-    $lat_west   = 39.29;
-    $lng_west   = 26.04;
-    $lat_south  = 1.16;
-    $lng_south  = 103.30;
+    $lat_east =  66.05;
+    $lng_east =  169.4;
+    $lat_north = 77.43;
+    $lng_north = 104.18;
+    $lat_west =  39.29;
+    $lng_west =  26.04;
+    $lat_south = 1.16;
+    $lng_south = 103.30;
 
-    $lat = (float)$entity[1];
-    $lng = (float)$entity[2];
+    $lat = (float) $entity[1];
+    $lng = (float) $entity[2];
 
     if (($lat_north >= $lat) && ($lat >= $lat_south)) {
         if (($lng_east >= $lng) && ($lng >= $lng_west)) {
@@ -241,5 +264,13 @@ function is_this_a_south_american_city(array $entity): bool {
     }
 
     return false;
+}
+
+function fopen_write_with_header(array $entityBody, string $stream, string $fileName, string $header) {
+    $outputFile = fopen("$stream/$fileName", 'w');
+    fwrite($outputFile, $header);
+    foreach ($entityBody as $entity) {
+        fputcsv($outputFile, $entity);
+    }
 }
 
