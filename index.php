@@ -18,10 +18,9 @@ function main(array $params) {
 
     $handledInputData = [];
     foreach ($inputFileData as $inputEntity) {
-        $tmp = explode(',', $inputEntity); // Remove commas from the data
+        $tmp = explode(',', $inputEntity);
 
-        $handledInputData[] = array_map('prepare_entity_column', $tmp); // We apply the function
-                                                                                // which removes all quotes
+        $handledInputData[] = array_map('prepare_entity_column', $tmp);
     }
 
     $saintWordEntities = array_filter(
@@ -77,12 +76,12 @@ function main(array $params) {
     $southАmericaСounter = count($southAmericaCity);
 
     $counterText = implode(PHP_EOL, [
-        "В Азии - " . $asianCounter . " городов",
-        "В Европе - " . $europeanCounter . " городов",
-        "В Африке - " . $africanСounter . " городов",
-        "В Северной Америке - " . $northАmericaСounter . " городов",
-        "В Южной Америке - " . $southАmericaСounter . " городов",
-        "В Австралии - " . $australianСounter . " городов"
+        "В Азии - $asianCounter городов",
+        "В Европе - $europeanCounter городов",
+        "В Африке - $africanСounter городов",
+        "В Северной Америке - $northАmericaСounter городов",
+        "В Южной Америке - $southАmericaСounter городов",
+        "В Австралии - $australianСounter городов"
     ]);
 
     mkdir($outputDirectoryName);
