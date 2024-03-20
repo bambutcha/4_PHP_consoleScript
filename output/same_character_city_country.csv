@@ -1,3 +1,4 @@
+city_ascii,lat,lng,country,iso2,iso3,population
 "Mexico City",19.4333,-99.1333,Mexico,MX,MEX,20996000
 Chengdu,30.6636,104.0667,China,CN,CHN,11309000
 Chongqing,29.55,106.5069,China,CN,CHN,7739000
