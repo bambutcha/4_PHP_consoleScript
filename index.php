@@ -11,6 +11,13 @@ function main(array $params) {
     $inputFileData = file($inputFileName);
     $headers       = array_shift($inputFileData); // Removed the top bottom one and put it in a variable
 
+    $header_array = explode(',', $headers);
+    $header_array = array_map(function($item){
+        return trim($item, '"');
+    }, $header_array);
+
+    var_dump($header_array);
+
     $handledInputData = [];
     foreach ($inputFileData as $inputEntity) {
         $tmp = explode(',', $inputEntity); // Remove commas from the data
@@ -80,7 +87,6 @@ function main(array $params) {
         "В Австралии - " . $australianСounter . " городов"
     ]);
 
-    
     mkdir($outputDirectoryName);
 
     /*/ $outputFile = fopen("$outputDirectoryName/saint_word_entities.csv", 'w');
@@ -88,56 +94,58 @@ function main(array $params) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write($saintWordEntities, $outputDirectoryName, "saint_word_entities.csv");
+    fopen_write_with_header($saintWordEntities, $outputDirectoryName, "saint_word_entities.csv", $header_array);
 
     /*/ $outputFile = fopen("$outputDirectoryName/same_character_city_country.csv", 'w');
     foreach ($sameCharacterCityCountry as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write($sameCharacterCityCountry, $outputDirectoryName, "same_character_city_country.csv");
+    fopen_write_with_header($sameCharacterCityCountry, $outputDirectoryName, "same_character_city_country.csv", $header_array);
 
     /*/ $outputFile = fopen("$outputDirectoryName/asian_city.csv", 'w');
     foreach ($asianCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($asianCity, $outputDirectoryName, "asian_city.csv", $headers);
+    fopen_write_with_header($asianCity, $outputDirectoryName, "asian_city.csv", $header_array);
 
     /*/ $outputFile = fopen("$outputDirectoryName/european_city.csv", 'w');
     foreach ($europeanCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($europeanCity, $outputDirectoryName, "european_city.csv", $headers);
+    fopen_write_with_header($europeanCity, $outputDirectoryName, "european_city.csv", $header_array);
 
     /*/ $outputFile = fopen("$outputDirectoryName/australian_city.csv", 'w');
     foreach ($australianCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($australianCity, $outputDirectoryName, "australian_city.csv", $headers);
+    fopen_write_with_header($australianCity, $outputDirectoryName, "australian_city.csv", $header_array);
 
     /*/ $outputFile = fopen("$outputDirectoryName/african_city.csv", 'w');
     foreach ($africanCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($africanCity, $outputDirectoryName, "african_city.csv", $headers);
+    fopen_write_with_header($africanCity, $outputDirectoryName, "african_city.csv", $header_array);
 
     /*/ $outputFile = fopen("$outputDirectoryName/north_american_city.csv", 'w');
     foreach ($northAmericaCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($northAmericaCity, $outputDirectoryName, "north_american_city.csv", $headers);
+    fopen_write_with_header($northAmericaCity, $outputDirectoryName, "north_american_city.csv", $header_array);
 
     /*/ $outputFile = fopen("$outputDirectoryName/south_american_city.csv", 'w');
     foreach ($southAmericaCity as $entity) {
         fputcsv($outputFile, $entity);
     } /*/
 
-    fopen_write_with_header($southAmericaCity, $outputDirectoryName, "south_american_city.csv", $headers);
+    fopen_write_with_header($southAmericaCity, $outputDirectoryName, "south_american_city.csv", $header_array);
+
+    fopen_write_with_header($australianCity, $outputDirectoryName, "australian_city.csv", $header_array);
 
     $outputFile = fopen("$outputDirectoryName/counter.txt", 'w');
     fwrite($outputFile, $counterText);
@@ -266,11 +274,40 @@ function is_this_a_south_american_city(array $entity): bool {
     return false;
 }
 
-function fopen_write_with_header(array $entityBody, string $stream, string $fileName, string $header) {
+function is_this_an_australian_city(array $entity): bool {
+    $lat_east   = -28.38;
+    $lng_east   = 153.38;
+    $lat_north  = -10.41;
+    $lng_north  = 142.31;
+    $lat_west   = -26.09;
+    $lng_west   = 113.09;
+    $lat_south  = -39.08;
+    $lng_south  = 146.22;
+
+    $lat = (float)$entity[1];
+    $lng = (float)$entity[2];
+
+    if (($lat_north >= $lat) && ($lat >= $lat_south)) {
+        if (($lng_east >= $lng) && ($lng >= $lng_west)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function fopen_write_with_header(array $entityBody, string $stream, string $fileName, array $header): void {
     $outputFile = fopen("$stream/$fileName", 'w');
-    fwrite($outputFile, $header);
+    if (!$outputFile) {
+        throw new Exception('Ошибка открытия файла');
+    }
+
+        fputcsv($outputFile, $header);
+
     foreach ($entityBody as $entity) {
         fputcsv($outputFile, $entity);
     }
+    fclose($outputFile);
 }
+
 
