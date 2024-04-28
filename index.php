@@ -1,9 +1,9 @@
 <?php
 
-require 'FileCsv.php';
-require 'FileCsvReader.php';
-require 'Filter.php';
-require 'Counter.php';
+include_once 'FileCsv.php';
+include_once 'FileCsvReader.php';
+include_once 'Filter.php';
+include_once 'Counter.php';
 const DEFAULT_OUTPUT_FORMAT   = 'csv';
 const DEFAULT_OUTPUT_DIR_NAME = 'output';
 
