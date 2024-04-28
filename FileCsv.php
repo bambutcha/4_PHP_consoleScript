@@ -5,7 +5,7 @@ class FileCsv
     public const DEFAULT_FILE_FORMAT = 'csv';
     public const DEFAULT_OUTPUT_NAME = 'output';
 
-    public function writeData(array $entityBody, string $fileName, array $header): self
+    public function writeData(array $entityBody, string $fileName, array $headers): self
     {
         $fileName   = implode('.', [$fileName, self::DEFAULT_FILE_FORMAT]);
         $outputFile = fopen(implode('/',[self::DEFAULT_OUTPUT_NAME, $fileName]), 'w');
@@ -14,7 +14,7 @@ class FileCsv
             throw new Exception('Ошибка открытия файла');
         }
 
-        fputcsv($outputFile, $header);
+        fputcsv($outputFile, $headers);
 
         foreach ($entityBody as $entity) {
             fputcsv($outputFile, $entity);
@@ -29,7 +29,4 @@ class FileCsv
         mkdir($dirName ?? self::DEFAULT_OUTPUT_NAME);
         return $this;
     }
-
-
-
 }

@@ -16,25 +16,27 @@ function main(array $params) {
     $outputFileFormat    = $params[2] ?? DEFAULT_OUTPUT_FORMAT;
     $outputDirectoryName = $params[1] ?? DEFAULT_OUTPUT_DIR_NAME;
 
-    $fileCsv           = new FileCsv();
-    $fileCsvReader     = new FileCsvReader($inputFileName);
+    $fileCsv       = new FileCsv();
+    $fileCsvReader = new FileCsvReader($inputFileName);
 
     $headers    = $fileCsvReader->handleInputFile()->getHeaders();
     $entityList = $fileCsvReader->getEntityList();
-    $filter      = new Filter($entityList);
-    $counter = new Counter($filter->getCountryCounter($entityList),null);
+    $filter     = new Filter($entityList);
 
-    $counter -> handleCounter()->writeDataToCounter($outputDirectoryName);
+
 
     $saintWordEntities        = $filter->getEntityContainsSaintWord($entityList);
     $sameCharacterCityCountry = $filter->getCityCountrySameCharacter($entityList);
 
-    $asianCity        = $filter -> getAsianCity($entityList);
-    $europeanCity     = $filter -> getEuCity($entityList);
-    $africanCity      = $filter -> getAfrCity($entityList);
-    $northAmericaCity = $filter -> getNACity($entityList);
-    $southAmericaCity = $filter -> getSACity($entityList);
-    $australianCity   = $filter -> getAuCity($entityList);
+    $asianCity        = $filter->getAsianCity($entityList);
+    $europeanCity     = $filter->getEuCity($entityList);
+    $africanCity      = $filter->getAfrCity($entityList);
+    $northAmericaCity = $filter->getNaCity($entityList);
+    $southAmericaCity = $filter->getSaCity($entityList);
+    $australianCity   = $filter->getAuCity($entityList);
+
+    $counter    = new Counter($filter->getCountryCounter(), null);
+    $counter->handleCounter()->writeDataToCounter($outputDirectoryName);
 
 
     $fileCsv->prepareDir($outputDirectoryName);

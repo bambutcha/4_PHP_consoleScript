@@ -15,7 +15,7 @@ class FileCsvReader extends FileCsv
     public function handleInputFile(): self
     {
         $this->inputData = file($this->inputFileName);
-        $this->headers =$this->handleEntity(array_shift($this->inputData));
+        $this->headers   = $this->handleEntity(array_shift($this->inputData));
 
 
         foreach ($this->inputData as $inputEntity) {
@@ -35,8 +35,7 @@ class FileCsvReader extends FileCsv
     }
     protected function handleEntity(string $inputEntity): array
     {
-        return array_map(
-            [$this, 'prepareEntityColumn'], explode(',', $inputEntity));
+        return array_map([$this, 'prepareEntityColumn'], explode(',', $inputEntity));
     }
 
     protected function prepareEntityColumn(string $value): string

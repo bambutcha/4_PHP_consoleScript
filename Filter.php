@@ -11,10 +11,6 @@ class Filter
         $this->entityList = $entityList;
     }
 
-   /* public function getNeedleByFiltration(string $filtrationFunction): array {
-        return array_filter($this->entityList, $filtrationFunction);
-    }*/
-
     public function getEntityContainsSaintWord(array $entity): array {
         return array_filter($this->entityList, function($entity) {
             return stripos($entity[0], 'saint');
@@ -28,7 +24,7 @@ class Filter
     }
 
 
-    protected function is_city_asia(array $entity): bool
+    protected function isCityAsia(array $entity): bool
     {
         $lat_east =  66.05;
         $lng_east =  169.4;
@@ -51,7 +47,8 @@ class Filter
         return false;
     }
 
-    protected function is_city_europe(array $entity): bool {
+    protected function isCityEurope(array $entity): bool
+    {
         $lat_east = 67.45;
         $lng_east = 66.13;
         $lat_north = 71.08;
@@ -73,7 +70,8 @@ class Filter
         return false;
     }
 
-    protected function is_city_africa(array $entity): bool {
+    protected function isCityAfrica(array $entity): bool
+    {
         $lat_east = 10.25;
         $lng_east = 51.21;
         $lat_north = 77.43;
@@ -95,7 +93,8 @@ class Filter
         return false;
     }
 
-    protected function is_city_north_america(array $entity): bool {
+    protected function isCityNorthAmerica(array $entity): bool
+    {
         $lat_east = 52.24;
         $lng_east = -55.40;
         $lat_north = 71.50;
@@ -117,7 +116,8 @@ class Filter
         return false;
     }
 
-    protected function is_city_south_america(array $entity): bool {
+    protected function isCitySouthAmerica(array $entity): bool
+    {
         $lat_east = -7.09;
         $lng_east = -34.47;
         $lat_north = 12.00;
@@ -139,7 +139,8 @@ class Filter
         return false;
     }
 
-    protected function is_city_australia(array $entity): bool {
+    protected function isCityAustralia(array $entity): bool
+    {
         $lat_east = -28.38;
         $lng_east = 153.38;
         $lat_north = -10.41;
@@ -163,46 +164,48 @@ class Filter
 
     public function getAsianCity(array $entity): array
     {
-            return array_filter($this->entityList, [$this, 'is_city_asia']);
+        $asianCity = array_filter($this->entityList, [$this, 'isCityAsia']);
+        $this->countryCounter[0] = count($asianCity);
+        return $asianCity;
     }
 
     public function getEuCity(array $entity): array
     {
-        return array_filter($this->entityList, [$this, 'is_city_europe']);
+        $euCity = array_filter($this->entityList, [$this, 'isCityEurope']);
+        $this->countryCounter[1] = count($euCity);
+        return $euCity;
     }
 
     public function getAfrCity(array $entity): array
     {
-        return array_filter($this->entityList, [$this, 'is_city_africa']);
+        $afrCity = array_filter($this->entityList, [$this, 'isCityAfrica']);
+        $this->countryCounter[2] = count($afrCity);
+        return $afrCity;
     }
 
-    public function getNACity(array $entity): array
+    public function getNaCity(array $entity): array
     {
-        return array_filter($this->entityList, [$this, 'is_city_north_america']);
+        $naCity = array_filter($this->entityList, [$this, 'isCityNorthAmerica']);
+        $this->countryCounter[3] = count($naCity);
+        return $naCity;
     }
 
-    public function getSACity(array $entity): array
+    public function getSaCity(array $entity): array
     {
-        return array_filter($this->entityList, [$this, 'is_city_south_america']);
+        $saCity = array_filter($this->entityList, [$this, 'isCitySouthAmerica']);
+        $this->countryCounter[4] = count($saCity);
+        return $saCity;
     }
 
     public function getAuCity(array $entity): array
     {
-        return array_filter($this->entityList, [$this, 'is_city_australia']);
+        $auCity = array_filter($this->entityList, [$this, 'isCityAustralia']);
+        $this->countryCounter[5] = count($auCity);
+        return $auCity;
     }
 
-    public function getCountryCounter(array $entity): array
+    public function getCountryCounter(): array
     {
-        $this->countryCounter[0] = count($this->getAsianCity($entity));
-        $this->countryCounter[1] = count($this->getEuCity($entity));
-        $this->countryCounter[2] = count($this->getAfrCity($entity));
-        $this->countryCounter[3] = count($this->getNACity($entity));
-        $this->countryCounter[4] = count($this->getSACity($entity));
-        $this->countryCounter[5] = count($this->getAuCity($entity));
-
-        return $this->countryCounter ?? [0,0,0,0,0,0];
-
+        return $this->countryCounter ?? [0,0,0,0,0];
     }
-
-
 }

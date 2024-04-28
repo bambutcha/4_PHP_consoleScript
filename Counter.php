@@ -5,9 +5,7 @@ class Counter
     public const DEFAULT_FILE_NAME = 'counter.txt';
 
     protected $fileName = self::DEFAULT_FILE_NAME;
-
     protected $counterCountry = [];
-
     protected $counterText;
 
     public function __construct(?array $counterCountry, ?string $fileName)
@@ -28,7 +26,6 @@ class Counter
             ]);
 
             return $this;
-
     }
 
 
