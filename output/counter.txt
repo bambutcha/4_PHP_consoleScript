@@ -1,6 +1,17 @@
-В Азии - 6058 городов
-В Европе - 8980 городов
-В Африке - 2230 городов
-В Северной Америке - 9625 городов
-В Южной Америке - 1729 городов
-В Австралии - 334 городов
+American cities:
+	6058
+
+European cities:
+	8980
+
+African cities:
+	2230
+
+North American cities:
+	9625
+
+South American cities:
+	1729
+
+Australian cities:
+	334

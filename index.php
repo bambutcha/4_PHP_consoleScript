@@ -35,8 +35,8 @@ function main(array $params) {
     $southAmericaCity = $filter->getSaCity($entityList);
     $australianCity   = $filter->getAuCity($entityList);
 
-    $counter    = new Counter($filter->getCountryCounter(), null);
-    $counter->handleCounter()->writeDataToCounter($outputDirectoryName);
+    $counter    = new Counter(null);
+    $counter->handleCounter($filter)->writeDataToCounter($outputDirectoryName);
 
 
     $fileCsv->prepareDir($outputDirectoryName);

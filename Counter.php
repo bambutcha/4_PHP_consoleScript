@@ -1,5 +1,4 @@
 <?php
-
 class Counter
 {
     public const DEFAULT_FILE_NAME = 'counter.txt';
@@ -8,25 +7,33 @@ class Counter
     protected $counterCountry = [];
     protected $counterText;
 
-    public function __construct(?array $counterCountry, ?string $fileName)
+    public function __construct(?string $fileName)
     {
         $this->fileName = $fileName ?? self::DEFAULT_FILE_NAME;
-        $this->counterCountry = $counterCountry ?? [0,0,0,0,0,0];
     }
 
-    public function handleCounter(): self
+    public function handleCounter(Filter $filter): self
     {
-            $this->counterText = implode(PHP_EOL, [
-                "В Азии - {$this->counterCountry[0]} городов",
-                "В Европе - {$this->counterCountry[1]} городов",
-                "В Африке - {$this->counterCountry[2]} городов",
-                "В Северной Америке - {$this->counterCountry[3]} городов",
-                "В Южной Америке - {$this->counterCountry[4]} городов",
-                "В Австралии - {$this->counterCountry[5]} городов"
-            ]);
+        $replacements = [
+            '%1' => count($filter->getAsianCity()),
+            '%2' => count($filter->getEuCity()),
+            '%3' => count($filter->getAfrCity()),
+            '%4' => count($filter->getNaCity()),
+            '%5' => count($filter->getSaCity()),
+            '%6' => count($filter->getAuCity()),
+        ];
 
-            return $this;
+        $template = "American cities:\n\t%1\n\nEuropean cities:\n\t%2\n\nAfrican cities:\n\t%3\n\nNorth American cities:\n\t%4\n\nSouth American cities:\n\t%5\n\nAustralian cities:\n\t%6";
+
+        $this->counterText = str_replace(
+            array_keys($replacements),
+            array_values($replacements),
+            $template
+        );
+
+        return $this;
     }
+
 
 
     public function writeDataToCounter(string $outputDirectoryName): self

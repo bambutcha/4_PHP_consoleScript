@@ -26,20 +26,20 @@ class Filter
 
     protected function isCityAsia(array $entity): bool
     {
-        $lat_east =  66.05;
-        $lng_east =  169.4;
-        $lat_north = 77.43;
-        $lng_north = 104.18;
-        $lat_west =  39.29;
-        $lng_west =  26.04;
-        $lat_south = 1.16;
-        $lng_south = 103.30;
+        $latEast =  66.05;
+        $lngEast =  169.4;
+        $latNorth = 77.43;
+        $lngNorth = 104.18;
+        $latWest =  39.29;
+        $lngWest =  26.04;
+        $latSouth = 1.16;
+        $lngSouth = 103.30;
 
         $lat = (float) $entity[1];
         $lng = (float) $entity[2];
 
-        if (($lat_north >= $lat) && ($lat >= $lat_south)) {
-            if (($lng_east >= $lng) && ($lng >= $lng_west)) {
+        if (($latNorth >= $lat) && ($lat >= $latSouth)) {
+            if (($lngEast >= $lng) && ($lng >= $lngWest)) {
                 return true;
             }
         }
@@ -49,20 +49,20 @@ class Filter
 
     protected function isCityEurope(array $entity): bool
     {
-        $lat_east = 67.45;
-        $lng_east = 66.13;
-        $lat_north = 71.08;
-        $lng_north = 27.39;
-        $lat_west = 38.46;
-        $lng_west = -9.29;
-        $lat_south = 36.00;
-        $lng_south = -5.36;
+        $latEast = 67.45;
+        $lngEast = 66.13;
+        $latNorth = 71.08;
+        $lngNorth = 27.39;
+        $latWest = 38.46;
+        $lngWest = -9.29;
+        $latSouth = 36.00;
+        $lngSouth = -5.36;
 
         $lat = (float) $entity[1];
         $lng = (float) $entity[2];
 
-        if (($lat_north >= $lat) && ($lat >= $lat_south)) {
-            if (($lng_east >= $lng) && ($lng >= $lng_west)) {
+        if (($latNorth >= $lat) && ($lat >= $latSouth)) {
+            if (($lngEast >= $lng) && ($lng >= $lngWest)) {
                 return true;
             }
         }
@@ -72,20 +72,20 @@ class Filter
 
     protected function isCityAfrica(array $entity): bool
     {
-        $lat_east = 10.25;
-        $lng_east = 51.21;
-        $lat_north = 77.43;
-        $lng_north = 104.18;
-        $lat_west = 39.29;
-        $lng_west = 26.10;
-        $lat_south = 1.16;
-        $lng_south = -103.3;
+        $latEast = 10.25;
+        $lngEast = 51.21;
+        $latNorth = 77.43;
+        $lngNorth = 104.18;
+        $latWest = 39.29;
+        $lngWest = 26.10;
+        $latSouth = 1.16;
+        $lngSouth = -103.3;
 
         $lat = (float) $entity[1];
         $lng = (float) $entity[2];
 
-        if (($lat_north >= $lat) && ($lat >= $lat_south)) {
-            if (($lng_east >= $lng) && ($lng >= $lng_west)) {
+        if (($latNorth >= $lat) && ($lat >= $latSouth)) {
+            if (($lngEast >= $lng) && ($lng >= $lngWest)) {
                 return true;
             }
         }
@@ -95,20 +95,20 @@ class Filter
 
     protected function isCityNorthAmerica(array $entity): bool
     {
-        $lat_east = 52.24;
-        $lng_east = -55.40;
-        $lat_north = 71.50;
-        $lng_north = -94.45;
-        $lat_west = 65.35;
-        $lng_west = -168.00;
-        $lat_south = 7.13;
-        $lng_south = -80.52;
+        $latEast = 52.24;
+        $lngEast = -55.40;
+        $latNorth = 71.50;
+        $lngNorth = -94.45;
+        $latWest = 65.35;
+        $lngWest = -168.00;
+        $latSouth = 7.13;
+        $lngSouth = -80.52;
 
         $lat = (float) $entity[1];
         $lng = (float) $entity[2];
 
-        if (($lat_north >= $lat) && ($lat >= $lat_south)) {
-            if (($lng_east >= $lng) && ($lng >= $lng_west)) {
+        if (($latNorth >= $lat) && ($lat >= $latSouth)) {
+            if (($lngEast >= $lng) && ($lng >= $lngWest)) {
                 return true;
             }
         }
@@ -118,20 +118,20 @@ class Filter
 
     protected function isCitySouthAmerica(array $entity): bool
     {
-        $lat_east = -7.09;
-        $lng_east = -34.47;
-        $lat_north = 12.00;
-        $lng_north = -72.00;
-        $lat_west = -4.40;
-        $lng_west = -81.20;
-        $lat_south = -53.54;
-        $lng_south = -71.18;
+        $latEast = -7.09;
+        $lngEast = -34.47;
+        $latNorth = 12.00;
+        $lngNorth = -72.00;
+        $latWest = -4.40;
+        $lngWest = -81.20;
+        $latSouth = -53.54;
+        $lngSouth = -71.18;
 
         $lat = (float) $entity[1];
         $lng = (float) $entity[2];
 
-        if (($lat_north >= $lat) && ($lat >= $lat_south)) {
-            if (($lng_east >= $lng) && ($lng >= $lng_west)) {
+        if (($latNorth >= $lat) && ($lat >= $latSouth)) {
+            if (($lngEast >= $lng) && ($lng >= $lngWest)) {
                 return true;
             }
         }
@@ -141,20 +141,20 @@ class Filter
 
     protected function isCityAustralia(array $entity): bool
     {
-        $lat_east = -28.38;
-        $lng_east = 153.38;
-        $lat_north = -10.41;
-        $lng_north = 142.31;
-        $lat_west = -26.09;
-        $lng_west = 113.09;
-        $lat_south = -39.08;
-        $lng_south = 146.22;
+        $latEast = -28.38;
+        $lngEast = 153.38;
+        $latNorth = -10.41;
+        $lngNorth = 142.31;
+        $latWest = -26.09;
+        $lngWest = 113.09;
+        $latSouth = -39.08;
+        $lngSouth = 146.22;
 
         $lat = (float) $entity[1];
         $lng = (float) $entity[2];
 
-        if (($lat_north >= $lat) && ($lat >= $lat_south)) {
-            if (($lng_east >= $lng) && ($lng >= $lng_west)) {
+        if (($latNorth >= $lat) && ($lat >= $latSouth)) {
+            if (($lngEast >= $lng) && ($lng >= $lngWest)) {
                 return true;
             }
         }
@@ -162,50 +162,40 @@ class Filter
         return false;
     }
 
-    public function getAsianCity(array $entity): array
+    public function getAsianCity(): array
     {
         $asianCity = array_filter($this->entityList, [$this, 'isCityAsia']);
-        $this->countryCounter[0] = count($asianCity);
         return $asianCity;
     }
 
-    public function getEuCity(array $entity): array
+    public function getEuCity(): array
     {
         $euCity = array_filter($this->entityList, [$this, 'isCityEurope']);
-        $this->countryCounter[1] = count($euCity);
         return $euCity;
     }
 
-    public function getAfrCity(array $entity): array
+    public function getAfrCity(): array
     {
         $afrCity = array_filter($this->entityList, [$this, 'isCityAfrica']);
-        $this->countryCounter[2] = count($afrCity);
         return $afrCity;
     }
 
-    public function getNaCity(array $entity): array
+    public function getNaCity(): array
     {
         $naCity = array_filter($this->entityList, [$this, 'isCityNorthAmerica']);
-        $this->countryCounter[3] = count($naCity);
         return $naCity;
     }
 
-    public function getSaCity(array $entity): array
+    public function getSaCity(): array
     {
         $saCity = array_filter($this->entityList, [$this, 'isCitySouthAmerica']);
-        $this->countryCounter[4] = count($saCity);
         return $saCity;
     }
 
-    public function getAuCity(array $entity): array
+    public function getAuCity(): array
     {
         $auCity = array_filter($this->entityList, [$this, 'isCityAustralia']);
-        $this->countryCounter[5] = count($auCity);
         return $auCity;
     }
 
-    public function getCountryCounter(): array
-    {
-        return $this->countryCounter ?? [0,0,0,0,0];
-    }
 }
