@@ -4,8 +4,6 @@ class Filter
 {
     protected $entityList;
 
-    protected $countryCounter;
-
     public function __construct(array $entityList)
     {
         $this->entityList = $entityList;
