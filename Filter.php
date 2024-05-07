@@ -162,38 +162,31 @@ class Filter
 
     public function getAsianCity(): array
     {
-        $asianCity = array_filter($this->entityList, [$this, 'isCityAsia']);
-        return $asianCity;
+        return array_filter($this->entityList, [$this, 'isCityAsia']);
     }
 
     public function getEuCity(): array
     {
-        $euCity = array_filter($this->entityList, [$this, 'isCityEurope']);
-        return $euCity;
+        return array_filter($this->entityList, [$this, 'isCityEurope']);
     }
 
     public function getAfrCity(): array
     {
-        $afrCity = array_filter($this->entityList, [$this, 'isCityAfrica']);
-        return $afrCity;
+        return array_filter($this->entityList, [$this, 'isCityAfrica']);
     }
 
     public function getNaCity(): array
     {
-        $naCity = array_filter($this->entityList, [$this, 'isCityNorthAmerica']);
-        return $naCity;
+        return array_filter($this->entityList, [$this, 'isCityNorthAmerica']);
     }
 
     public function getSaCity(): array
     {
-        $saCity = array_filter($this->entityList, [$this, 'isCitySouthAmerica']);
-        return $saCity;
+        return array_filter($this->entityList, [$this, 'isCitySouthAmerica']);
     }
 
     public function getAuCity(): array
     {
-        $auCity = array_filter($this->entityList, [$this, 'isCityAustralia']);
-        return $auCity;
+        return array_filter($this->entityList, [$this, 'isCityAustralia']);
     }
-
 }

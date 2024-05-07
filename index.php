@@ -23,8 +23,6 @@ function main(array $params) {
     $entityList = $fileCsvReader->getEntityList();
     $filter     = new Filter($entityList);
 
-
-
     $saintWordEntities        = $filter->getEntityContainsSaintWord($entityList);
     $sameCharacterCityCountry = $filter->getCityCountrySameCharacter($entityList);
 
@@ -38,13 +36,12 @@ function main(array $params) {
     $counter    = new Counter(null);
     $counter->clearCounterFile($outputDirectoryName);
 
-    $counter->handleCounter($asianCity, "Asian cities")->writeDataToCounter($outputDirectoryName);
-    $counter->handleCounter($europeanCity, "European cities")->writeDataToCounter($outputDirectoryName);
-    $counter->handleCounter($africanCity, "African cities")->writeDataToCounter($outputDirectoryName);
-    $counter->handleCounter($northAmericaCity, "North American cities")->writeDataToCounter($outputDirectoryName);
-    $counter->handleCounter($southAmericaCity, "South American cities")->writeDataToCounter($outputDirectoryName);
-    $counter->handleCounter($australianCity, "Australian cities")->writeDataToCounter($outputDirectoryName);
-
+    $counter->handleCounter($asianCity, 'Asian cities')->writeDataToCounter($outputDirectoryName);
+    $counter->handleCounter($europeanCity, 'European cities')->writeDataToCounter($outputDirectoryName);
+    $counter->handleCounter($africanCity, 'African cities')->writeDataToCounter($outputDirectoryName);
+    $counter->handleCounter($northAmericaCity, 'North American cities')->writeDataToCounter($outputDirectoryName);
+    $counter->handleCounter($southAmericaCity, 'South American cities')->writeDataToCounter($outputDirectoryName);
+    $counter->handleCounter($australianCity, 'Australian cities')->writeDataToCounter($outputDirectoryName);
 
     $fileCsv->prepareDir($outputDirectoryName);
 

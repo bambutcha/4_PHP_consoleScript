@@ -1,7 +1,8 @@
 <?php
+
 class Counter
 {
-    public const DEFAULT_FILE_NAME = 'counter.txt';
+    public const DEFAULT_FILE_NAME = 'output/counter.txt';
 
     protected $fileName = self::DEFAULT_FILE_NAME;
     protected $counterText;
@@ -11,10 +12,10 @@ class Counter
         $this->fileName = $fileName ?? self::DEFAULT_FILE_NAME;
     }
 
-    public function handleCounter(array $entity, string $counterText): self
+    public function handleCounter(array $entities, string $counterText): self
     {
         $replacements = [
-            '%1' => count($entity),
+            '%1' => count($entities),
         ];
 
         $template = "$counterText:\n\t\t%1\n";
@@ -29,18 +30,18 @@ class Counter
     }
 
 
-    public function writeDataToCounter(string $outputDirectoryName): self
+    public function writeDataToCounter(): self
     {
-        $outputFile = fopen("$outputDirectoryName/counter.txt", 'a');
+        $outputFile = fopen("$this->fileName", 'a');
         fwrite($outputFile, $this->counterText);
         fclose($outputFile);
 
         return $this;
     }
 
-    public function clearCounterFile(string $outputDirectoryName): self
+    public function clearCounterFile(): self
     {
-        $counterFilePath = "$outputDirectoryName/counter.txt";
+        $counterFilePath = "$this->fileName.txt";
 
         if (file_exists($counterFilePath)) {
             file_put_contents($counterFilePath, '');
