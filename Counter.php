@@ -7,24 +7,14 @@ class Counter
     protected $fileName = self::DEFAULT_FILE_NAME;
     protected $counterText;
 
-    public function __construct(?string $fileName)
+    public function __construct(?string $fileName = null)
     {
         $this->fileName = $fileName ?? self::DEFAULT_FILE_NAME;
     }
 
-    public function handleCounter(array $entities, string $counterText): self
+    public function prepareCounterText(array $entities, string $counterText): self
     {
-        $replacements = [
-            '%1' => count($entities),
-        ];
-
-        $template = "$counterText:\n\t\t%1\n";
-
-        $this->counterText = str_replace(
-            array_keys($replacements),
-            array_values($replacements),
-            $template
-        );
+        $this->counterText = str_replace("%1", PHP_EOL."\t".count($entities)."\n", $counterText);
 
         return $this;
     }
@@ -32,7 +22,7 @@ class Counter
 
     public function writeDataToCounter(): self
     {
-        $outputFile = fopen("$this->fileName", 'a');
+        $outputFile = fopen($this->fileName, 'a');
         fwrite($outputFile, $this->counterText);
         fclose($outputFile);
 

@@ -10,3 +10,27 @@ South American cities:
 		1729
 Australian cities:
 		334
+Asian citiesEuropean citiesAfrican citiesNorth American citiesSouth American citiesAustralian citiesAsian cities: 
+	6058European cities: 
+	8980African cities: 
+	2230North American cities: 
+	9625South American cities: 
+	1729Australian cities: 
+	334Asian cities: 
+	6058European cities: 
+	8980African cities: 
+	2230North American cities: 
+	9625South American cities: 
+	1729Australian cities: 
+	334Asian cities: 
+	6058
+European cities: 
+	8980
+African cities: 
+	2230
+North American cities: 
+	9625
+South American cities: 
+	1729
+Australian cities: 
+	334
