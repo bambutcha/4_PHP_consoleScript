@@ -14,7 +14,7 @@ class Counter
 
     public function prepareCounterText(array $entities, string $counterText): self
     {
-        $this->counterText = str_replace("%1", PHP_EOL."\t".count($entities)."\n", $counterText);
+        $this->counterText = str_replace("%1", PHP_EOL."\t".count($entities).PHP_EOL, $counterText);
 
         return $this;
     }
@@ -31,7 +31,7 @@ class Counter
 
     public function clearCounterFile(): self
     {
-        $counterFilePath = "$this->fileName.txt";
+        $counterFilePath = "$this->fileName";
 
         if (file_exists($counterFilePath)) {
             file_put_contents($counterFilePath, '');
