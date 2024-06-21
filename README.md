@@ -1,1 +1,1 @@
-##PHP project that uses an OOP approach
+PHP project that uses an OOP approach
