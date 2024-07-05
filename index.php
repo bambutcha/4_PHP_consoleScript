@@ -1,9 +1,11 @@
 <?php
 
-include_once 'FileCsv.php';
-include_once 'FileCsvReader.php';
-include_once 'Filter.php';
-include_once 'Counter.php';
+use App\Counter;
+use App\FileCsv;
+use App\FileCsvReader;
+use App\Filter;
+
+require 'autoloader.php';
 const DEFAULT_OUTPUT_FORMAT   = 'csv';
 const DEFAULT_OUTPUT_DIR_NAME = 'output';
 

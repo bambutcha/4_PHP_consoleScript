@@ -1,5 +1,6 @@
 <?php
 
+namespace App;
 class FileCsv
 {
     public const DEFAULT_FILE_FORMAT = 'csv';
@@ -7,7 +8,7 @@ class FileCsv
 
     public function writeData(array $entityBody, string $fileName, array $headers): self
     {
-        $fileName   = implode('.', [$fileName, self::DEFAULT_FILE_FORMAT]);
+        $fileName = implode('.', [$fileName, self::DEFAULT_FILE_FORMAT]);
         $outputFile = fopen(implode('/', [self::DEFAULT_OUTPUT_NAME, $fileName]), 'w');
 
         if (!$outputFile) {

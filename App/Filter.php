@@ -1,5 +1,6 @@
 <?php
 
+namespace App;
 class Filter
 {
     protected $entityList;
@@ -9,14 +10,16 @@ class Filter
         $this->entityList = $entityList;
     }
 
-    public function getEntityContainsSaintWord(array $entity): array {
-        return array_filter($this->entityList, function($entity) {
+    public function getEntityContainsSaintWord(array $entity): array
+    {
+        return array_filter($this->entityList, function ($entity) {
             return stripos($entity[0], 'saint');
         });
     }
 
-    public function getCityCountrySameCharacter(array $entity): array {
-        return array_filter($this->entityList, function($entity) {
+    public function getCityCountrySameCharacter(array $entity): array
+    {
+        return array_filter($this->entityList, function ($entity) {
             return substr($entity[0], 0, 1) == substr($entity[3], 0, 1);
         });
     }
@@ -24,17 +27,17 @@ class Filter
 
     protected function isCityAsia(array $entity): bool
     {
-        $latEast =  66.05;
-        $lngEast =  169.4;
+        $latEast = 66.05;
+        $lngEast = 169.4;
         $latNorth = 77.43;
         $lngNorth = 104.18;
-        $latWest =  39.29;
-        $lngWest =  26.04;
+        $latWest = 39.29;
+        $lngWest = 26.04;
         $latSouth = 1.16;
         $lngSouth = 103.30;
 
-        $lat = (float) $entity[1];
-        $lng = (float) $entity[2];
+        $lat = (float)$entity[1];
+        $lng = (float)$entity[2];
 
         if (($latNorth >= $lat) && ($lat >= $latSouth)) {
             if (($lngEast >= $lng) && ($lng >= $lngWest)) {
@@ -56,8 +59,8 @@ class Filter
         $latSouth = 36.00;
         $lngSouth = -5.36;
 
-        $lat = (float) $entity[1];
-        $lng = (float) $entity[2];
+        $lat = (float)$entity[1];
+        $lng = (float)$entity[2];
 
         if (($latNorth >= $lat) && ($lat >= $latSouth)) {
             if (($lngEast >= $lng) && ($lng >= $lngWest)) {
@@ -79,8 +82,8 @@ class Filter
         $latSouth = 1.16;
         $lngSouth = -103.3;
 
-        $lat = (float) $entity[1];
-        $lng = (float) $entity[2];
+        $lat = (float)$entity[1];
+        $lng = (float)$entity[2];
 
         if (($latNorth >= $lat) && ($lat >= $latSouth)) {
             if (($lngEast >= $lng) && ($lng >= $lngWest)) {
@@ -102,8 +105,8 @@ class Filter
         $latSouth = 7.13;
         $lngSouth = -80.52;
 
-        $lat = (float) $entity[1];
-        $lng = (float) $entity[2];
+        $lat = (float)$entity[1];
+        $lng = (float)$entity[2];
 
         if (($latNorth >= $lat) && ($lat >= $latSouth)) {
             if (($lngEast >= $lng) && ($lng >= $lngWest)) {
@@ -125,8 +128,8 @@ class Filter
         $latSouth = -53.54;
         $lngSouth = -71.18;
 
-        $lat = (float) $entity[1];
-        $lng = (float) $entity[2];
+        $lat = (float)$entity[1];
+        $lng = (float)$entity[2];
 
         if (($latNorth >= $lat) && ($lat >= $latSouth)) {
             if (($lngEast >= $lng) && ($lng >= $lngWest)) {
@@ -148,8 +151,8 @@ class Filter
         $latSouth = -39.08;
         $lngSouth = 146.22;
 
-        $lat = (float) $entity[1];
-        $lng = (float) $entity[2];
+        $lat = (float)$entity[1];
+        $lng = (float)$entity[2];
 
         if (($latNorth >= $lat) && ($lat >= $latSouth)) {
             if (($lngEast >= $lng) && ($lng >= $lngWest)) {

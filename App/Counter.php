@@ -1,5 +1,6 @@
 <?php
 
+namespace App;
 class Counter
 {
     public const DEFAULT_FILE_NAME = 'output/counter.txt';
@@ -14,7 +15,7 @@ class Counter
 
     public function prepareCounterText(array $entities, string $counterText): self
     {
-        $this->counterText = str_replace("%1", PHP_EOL."\t".count($entities).PHP_EOL, $counterText);
+        $this->counterText = str_replace("%1", PHP_EOL . "\t" . count($entities) . PHP_EOL, $counterText);
 
         return $this;
     }
