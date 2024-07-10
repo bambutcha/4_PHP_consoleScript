@@ -8,11 +8,12 @@ class FileCsv
 
     public function writeData(array $entityBody, string $fileName, array $headers): self
     {
-        $fileName = implode('.', [$fileName, self::DEFAULT_FILE_FORMAT]);
-        $outputFile = fopen(implode('/', [self::DEFAULT_OUTPUT_NAME, $fileName]), 'w');
+        $filePath = $this->getFilePath($fileName);
+
+        $outputFile = fopen($filePath, 'w');
 
         if (!$outputFile) {
-            throw new Exception('Ошибка открытия файла');
+            throw new \Exception('Ошибка открытия файла');
         }
 
         fputcsv($outputFile, $headers);
@@ -25,9 +26,16 @@ class FileCsv
         return $this;
     }
 
-    public function prepareDir(?string $dirName): self
+    public function prepareDir(?string $dirName = self::DEFAULT_OUTPUT_NAME): self
     {
-        mkdir($dirName ?? self::DEFAULT_OUTPUT_NAME);
+        if (!is_dir($dirName)) {
+            mkdir($dirName);
+        }
         return $this;
+    }
+
+    private function getFilePath(string $fileName): string
+    {
+        return implode('/', [self::DEFAULT_OUTPUT_NAME, $fileName . '.' . self::DEFAULT_FILE_FORMAT]);
     }
 }
