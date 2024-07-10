@@ -1,16 +1,9 @@
 <?php
 
-<<<<<<< HEAD
-use App\FileCsv;
-use App\FileCsvReader;
-use App\Filter;
-use App\Handler\Counter;
-=======
 use App\Counter;
 use App\FileCsv;
 use App\FileCsvReader;
 use App\Filter;
->>>>>>> 8ceff2e (Create autoloader.php)
 
 require 'autoloader.php';
 const DEFAULT_OUTPUT_FORMAT   = 'csv';

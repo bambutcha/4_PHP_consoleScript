@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<<< HEAD:App/Handler/Counter.php
-namespace App\Handler;
-========
 namespace App;
->>>>>>>> 8ceff2e (Create autoloader.php):App/Counter.php
 class Counter
 {
     public const DEFAULT_FILE_NAME = 'output/counter.txt';
