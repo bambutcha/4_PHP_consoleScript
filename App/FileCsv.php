@@ -36,6 +36,6 @@ class FileCsv
 
     private function getFilePath(string $fileName): string
     {
-        return implode('/', [self::DEFAULT_OUTPUT_NAME, $fileName . '.' . self::DEFAULT_FILE_FORMAT]);
+        return implode(DIRECTORY_SEPARATOR, [self::DEFAULT_OUTPUT_NAME, $fileName . '.' . self::DEFAULT_FILE_FORMAT]);
     }
 }

@@ -1,14 +1,8 @@
 {
-  "name": "vendor_name/src",
-  "description": "description",
-  "minimum-stability": "stable",
-  "license": "proprietary",
-  "authors": [
-    {
-      "name": "bambutcha",
-      "email": "email@example.com"
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/",
+      "App\\Handler\\": "App/Handler/"
     }
-  ],
-  "require": {
   }
 }
