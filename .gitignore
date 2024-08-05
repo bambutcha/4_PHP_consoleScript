@@ -1,0 +1,8 @@
+# .gitignore
+.idea/
+output/
+workspace.xml
+index1.php
+unnecessary_function.php
+output/counter.txt
+vendor/
