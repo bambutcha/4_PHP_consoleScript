@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Handler;
 class Counter
 {
     public const DEFAULT_FILE_NAME = 'output/counter.txt';

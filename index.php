@@ -1,11 +1,11 @@
 <?php
 
-use App\Counter;
 use App\FileCsv;
 use App\FileCsvReader;
 use App\Filter;
+use App\Handler\Counter;
 
-require 'autoloader.php';
+require 'vendor/autoload.php';
 const DEFAULT_OUTPUT_FORMAT   = 'csv';
 const DEFAULT_OUTPUT_DIR_NAME = 'output';
 
