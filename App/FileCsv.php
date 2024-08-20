@@ -4,7 +4,7 @@ namespace App;
 class FileCsv
 {
     public const DEFAULT_FILE_FORMAT = 'csv';
-    public const DEFAULT_OUTPUT_NAME = 'output';
+    public const DEFAULT_OUTPUT_DIR_NAME = 'output';
 
     public function writeData(array $entityBody, string $fileName, array $headers): self
     {
@@ -26,16 +26,19 @@ class FileCsv
         return $this;
     }
 
-    public function prepareDir(?string $dirName = self::DEFAULT_OUTPUT_NAME): self
+    public function prepareDir(?string $dirName = self::DEFAULT_OUTPUT_DIR_NAME): string
     {
-        if (!is_dir($dirName)) {
-            mkdir($dirName);
+        if (is_dir($dirName)) {
+            return $dirName;
         }
-        return $this;
+        mkdir($dirName);
+        return $dirName;
     }
 
     private function getFilePath(string $fileName): string
     {
-        return implode(DIRECTORY_SEPARATOR, [self::DEFAULT_OUTPUT_NAME, $fileName . '.' . self::DEFAULT_FILE_FORMAT]);
+        return implode(DIRECTORY_SEPARATOR, [self::DEFAULT_OUTPUT_DIR_NAME, $fileName . '.' . self::DEFAULT_FILE_FORMAT]);
     }
+
 }
+

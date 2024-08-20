@@ -4,6 +4,10 @@ use App\FileCsv;
 use App\FileCsvReader;
 use App\Filter;
 use App\Handler\Counter;
+use App\ParamResolver;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
+use \PhpOffice\PhpSpreadsheet\Spreadsheet as Spreadsheet;
 
 require 'vendor/autoload.php';
 const DEFAULT_OUTPUT_FORMAT   = 'csv';
@@ -11,18 +15,41 @@ const DEFAULT_OUTPUT_DIR_NAME = 'output';
 
 $params = $argv;
 array_shift($params);
-main($params);
+$paramResolver = new ParamResolver($params);
+main($paramResolver);
 
-function main(array $params) {
-    $inputFileName       = $params[0];
-    $outputFileFormat    = $params[2] ?? DEFAULT_OUTPUT_FORMAT;
-    $outputDirectoryName = $params[1] ?? DEFAULT_OUTPUT_DIR_NAME;
+function main(ParamResolver $paramResolver) {
+    $entityList = [];
+    $headers    = [];
+    $counter    = new Counter();
+    $counter->clearCounterFile();
 
-    $fileCsv       = new FileCsv();
-    $fileCsvReader = new FileCsvReader($inputFileName);
+    if ($paramResolver->getInputFileFormat() === 'xlsx') {
+        $reader      = new XlsxReader();
+        $spreadsheet = $reader->load($paramResolver->getInputFileName());
 
-    $headers    = $fileCsvReader->handleInputFile()->getHeaders();
-    $entityList = $fileCsvReader->getEntityList();
+        $sheets = $spreadsheet->getAllSheets();
+
+        $headers    = current($entityList);
+        $entityList = current($sheets)->toArray();
+
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->save('is_entity_contains_saint_word.xlsx');
+    } elseif ($paramResolver->getInputFileFormat() === 'csv') {
+        $fileCsvReader = new FileCsvReader($paramResolver->getInputFileName());
+
+        $headers    = $fileCsvReader->getHeaders();
+        $entityList = $fileCsvReader->handleInputFile()->getEntityList();
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->removeSheetByIndex(0);
+        $spreadsheet->createSheet()->fromArray($entityList);
+
+
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->save('is_entity_contains_saint_word_2.xlsx');
+    }
+
     $filter     = new Filter($entityList);
 
     $saintWordEntities        = $filter->getEntityContainsSaintWord($entityList);
@@ -35,8 +62,9 @@ function main(array $params) {
     $southAmericaCity = $filter->getSaCity($entityList);
     $australianCity   = $filter->getAuCity($entityList);
 
-    $counter    = new Counter();
-    $counter->clearCounterFile();
+    $fileCsv = new FileCsv();
+
+    $outputDirectoryName = $fileCsv->prepareDir($paramResolver->getOutputDirectoryName());
 
     $counter->prepareCounterText($asianCity, 'Asian cities: %1')->writeDataToCounter($outputDirectoryName);
     $counter->prepareCounterText($europeanCity, 'European cities: %1')->writeDataToCounter($outputDirectoryName);
@@ -44,8 +72,6 @@ function main(array $params) {
     $counter->prepareCounterText($northAmericaCity, 'North American cities: %1')->writeDataToCounter($outputDirectoryName);
     $counter->prepareCounterText($southAmericaCity, 'South American cities: %1')->writeDataToCounter($outputDirectoryName);
     $counter->prepareCounterText($australianCity, 'Australian cities: %1')->writeDataToCounter($outputDirectoryName);
-
-    $fileCsv->prepareDir($outputDirectoryName);
 
     $fileCsv->writeData($saintWordEntities, 'saint_word_entities', $headers);
     $fileCsv->writeData($sameCharacterCityCountry, 'same_character_city_country', $headers);

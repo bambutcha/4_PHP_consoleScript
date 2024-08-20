@@ -6,7 +6,6 @@ class FileCsvReader extends FileCsv
 {
     protected $inputFileName;
     protected $headers;
-    protected $inputData = [];
     protected $entityList;
 
     public function __construct(string $inputFileName)
@@ -16,11 +15,11 @@ class FileCsvReader extends FileCsv
 
     public function handleInputFile(): self
     {
-        $this->inputData = file($this->inputFileName);
-        $this->headers = $this->handleEntity(array_shift($this->inputData));
+        $inputFileData = file($this->inputFileName);
+        $this->headers = $this->handleEntity(array_shift($inputFileData));
 
 
-        foreach ($this->inputData as $inputEntity) {
+        foreach ($inputFileData as $inputEntity) {
             $this->entityList[] = $this->handleEntity($inputEntity);
         }
         return $this;
