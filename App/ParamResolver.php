@@ -5,12 +5,13 @@ namespace App;
 class ParamResolver
 {
     const INPUT_FILE_NAME_PARAM_KEY         = 0;
-    const OUTPUT_DIRECTORY_NAME_PARAM_VALUE = 1;
-    const OUTPUT_FILE_FORMAT_PARAM_KEY      = 2;
+    const OUTPUT_FILE_FORMAT_PARAM_KEY      = 1;
+    const OUTPUT_DIRECTORY_NAME_PARAM_VALUE = 2;
 
     protected $inputFileName;
     protected $outputFileFormat;
     protected $outputDirectoryName;
+    protected $inputFileFormat;
 
     public function __construct(array $params)
     {
@@ -37,7 +38,9 @@ class ParamResolver
     public function getInputFileFormat(): string
     {
         $formats = explode('.', $this->inputFileName);
+        $this->inputFileFormat = end($formats);
 
-        return end($formats);
+        return $this->inputFileFormat;
     }
+
 }

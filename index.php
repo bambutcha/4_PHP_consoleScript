@@ -5,9 +5,12 @@ use App\FileCsvReader;
 use App\Filter;
 use App\Handler\Counter;
 use App\ParamResolver;
+use App\FileHandler;
+use App\FileXlsx;
+use App\FIleXlsxReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
-use \PhpOffice\PhpSpreadsheet\Spreadsheet as Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Spreadsheet as Spreadsheet;
 
 require 'vendor/autoload.php';
 const DEFAULT_OUTPUT_FORMAT   = 'csv';
@@ -23,31 +26,18 @@ function main(ParamResolver $paramResolver) {
     $headers    = [];
     $counter    = new Counter();
     $counter->clearCounterFile();
+    $fileHandler = new FileHandler($paramResolver->getOutputFileFormat());
+    $fileXlsx = new FileXlsx();
+    $fileCsv = new FileCsv();
+    $fileXlsxReader = new FIleXlsxReader($paramResolver->getInputFileName());
+    $fileCsvReader = new FileCsvReader($paramResolver->getInputFileName());
 
     if ($paramResolver->getInputFileFormat() === 'xlsx') {
-        $reader      = new XlsxReader();
-        $spreadsheet = $reader->load($paramResolver->getInputFileName());
-
-        $sheets = $spreadsheet->getAllSheets();
-
-        $headers    = current($entityList);
-        $entityList = current($sheets)->toArray();
-
-        $writer = new XlsxWriter($spreadsheet);
-        $writer->save('is_entity_contains_saint_word.xlsx');
+        $entityList = $fileXlsxReader->handleInputFile()->getEntityList();
+        $headers = $fileXlsxReader->getHeaders();
     } elseif ($paramResolver->getInputFileFormat() === 'csv') {
-        $fileCsvReader = new FileCsvReader($paramResolver->getInputFileName());
-
-        $headers    = $fileCsvReader->getHeaders();
         $entityList = $fileCsvReader->handleInputFile()->getEntityList();
-
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->removeSheetByIndex(0);
-        $spreadsheet->createSheet()->fromArray($entityList);
-
-
-        $writer = new XlsxWriter($spreadsheet);
-        $writer->save('is_entity_contains_saint_word_2.xlsx');
+        $headers = $fileCsvReader->getHeaders();
     }
 
     $filter     = new Filter($entityList);
@@ -55,16 +45,14 @@ function main(ParamResolver $paramResolver) {
     $saintWordEntities        = $filter->getEntityContainsSaintWord($entityList);
     $sameCharacterCityCountry = $filter->getCityCountrySameCharacter($entityList);
 
-    $asianCity        = $filter->getAsianCity($entityList);
-    $europeanCity     = $filter->getEuCity($entityList);
-    $africanCity      = $filter->getAfrCity($entityList);
-    $northAmericaCity = $filter->getNaCity($entityList);
-    $southAmericaCity = $filter->getSaCity($entityList);
-    $australianCity   = $filter->getAuCity($entityList);
+    $asianCity        = $filter->getAsianCity();
+    $europeanCity     = $filter->getEuCity();
+    $africanCity      = $filter->getAfrCity();
+    $northAmericaCity = $filter->getNaCity();
+    $southAmericaCity = $filter->getSaCity();
+    $australianCity   = $filter->getAuCity();
 
-    $fileCsv = new FileCsv();
-
-    $outputDirectoryName = $fileCsv->prepareDir($paramResolver->getOutputDirectoryName());
+    $outputDirectoryName = $fileHandler->prepareDir($paramResolver->getOutputDirectoryName());
 
     $counter->prepareCounterText($asianCity, 'Asian cities: %1')->writeDataToCounter($outputDirectoryName);
     $counter->prepareCounterText($europeanCity, 'European cities: %1')->writeDataToCounter($outputDirectoryName);
@@ -73,13 +61,25 @@ function main(ParamResolver $paramResolver) {
     $counter->prepareCounterText($southAmericaCity, 'South American cities: %1')->writeDataToCounter($outputDirectoryName);
     $counter->prepareCounterText($australianCity, 'Australian cities: %1')->writeDataToCounter($outputDirectoryName);
 
-    $fileCsv->writeData($saintWordEntities, 'saint_word_entities', $headers);
-    $fileCsv->writeData($sameCharacterCityCountry, 'same_character_city_country', $headers);
-    $fileCsv->writeData($asianCity, 'asian_city', $headers);
-    $fileCsv->writeData($europeanCity, 'european_city', $headers);
-    $fileCsv->writeData($africanCity, 'african_city', $headers);
-    $fileCsv->writeData($northAmericaCity, 'north_american_city', $headers);
-    $fileCsv->writeData($southAmericaCity, 'south_american_city', $headers);
-    $fileCsv->writeData($australianCity, 'australian_city', $headers);
+    if ($paramResolver->getInputFileFormat() === 'csv') {
+        $fileCsv->writeCsvData($saintWordEntities, 'saint_word_entities', $headers);
+        $fileCsv->writeCsvData($sameCharacterCityCountry, 'same_character_city_country', $headers);
+        $fileCsv->writeCsvData($asianCity, 'asian_city', $headers);
+        $fileCsv->writeCsvData($europeanCity, 'european_city', $headers);
+        $fileCsv->writeCsvData($africanCity, 'african_city', $headers);
+        $fileCsv->writeCsvData($northAmericaCity, 'north_american_city', $headers);
+        $fileCsv->writeCsvData($southAmericaCity, 'south_american_city', $headers);
+        $fileCsv->writeCsvData($australianCity, 'australian_city', $headers);
+    } elseif ($paramResolver->getInputFileFormat() === 'xlsx') {
+        $fileXlsx->writeXlsxData($saintWordEntities, 'saint_word_entities', $headers);
+        $fileXlsx->writeXlsxData($sameCharacterCityCountry, 'same_character_city_country', $headers);
+        $fileXlsx->writeXlsxData($asianCity, 'asian_city', $headers);
+        $fileXlsx->writeXlsxData($europeanCity, 'european_city', $headers);
+        $fileXlsx->writeXlsxData($africanCity, 'african_city', $headers);
+        $fileXlsx->writeXlsxData($northAmericaCity, 'north_american_city', $headers);
+        $fileXlsx->writeXlsxData($southAmericaCity, 'south_american_city', $headers);
+        $fileXlsx->writeXlsxData($australianCity, 'australian_city', $headers);
+    }
+
 
 }
