@@ -26,7 +26,7 @@ function main(ParamResolver $paramResolver) {
     $headers    = [];
     $counter    = new Counter();
     $counter->clearCounterFile();
-    $fileHandler = new FileHandler($paramResolver->getOutputFileFormat());
+    $fileHandler = new FileHandler('$paramResolver->getOutputFileFormat()');
     $fileXlsx = new FileXlsx();
     $fileCsv = new FileCsv();
     $fileXlsxReader = new FIleXlsxReader($paramResolver->getInputFileName());
@@ -61,7 +61,7 @@ function main(ParamResolver $paramResolver) {
     $counter->prepareCounterText($southAmericaCity, 'South American cities: %1')->writeDataToCounter($outputDirectoryName);
     $counter->prepareCounterText($australianCity, 'Australian cities: %1')->writeDataToCounter($outputDirectoryName);
 
-    if ($paramResolver->getInputFileFormat() === 'csv') {
+    if ($paramResolver->getOutputFileFormat() === 'csv') {
         $fileCsv->writeCsvData($saintWordEntities, 'saint_word_entities', $headers);
         $fileCsv->writeCsvData($sameCharacterCityCountry, 'same_character_city_country', $headers);
         $fileCsv->writeCsvData($asianCity, 'asian_city', $headers);
@@ -70,7 +70,7 @@ function main(ParamResolver $paramResolver) {
         $fileCsv->writeCsvData($northAmericaCity, 'north_american_city', $headers);
         $fileCsv->writeCsvData($southAmericaCity, 'south_american_city', $headers);
         $fileCsv->writeCsvData($australianCity, 'australian_city', $headers);
-    } elseif ($paramResolver->getInputFileFormat() === 'xlsx') {
+    } elseif ($paramResolver->getOutputFileFormat() === 'xlsx') {
         $fileXlsx->writeXlsxData($saintWordEntities, 'saint_word_entities', $headers);
         $fileXlsx->writeXlsxData($sameCharacterCityCountry, 'same_character_city_country', $headers);
         $fileXlsx->writeXlsxData($asianCity, 'asian_city', $headers);
