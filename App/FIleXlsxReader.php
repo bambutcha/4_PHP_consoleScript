@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 class FIleXlsxReader extends FileXlsx
 {
     protected $inputFileName;
+    #protected $outputFileName;
     protected $headers;
     protected $entityList;
 

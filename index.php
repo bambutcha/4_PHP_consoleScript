@@ -26,9 +26,8 @@ function main(ParamResolver $paramResolver) {
     $headers    = [];
     $counter    = new Counter();
     $counter->clearCounterFile();
-    $fileHandler = new FileHandler('$paramResolver->getOutputFileFormat()');
-    $fileXlsx = new FileXlsx();
-    $fileCsv = new FileCsv();
+    $fileXlsx = new FileXlsx($paramResolver->getOutputFileFormat());
+    $fileCsv = new FileCsv($paramResolver->getOutputFileFormat());
     $fileXlsxReader = new FIleXlsxReader($paramResolver->getInputFileName());
     $fileCsvReader = new FileCsvReader($paramResolver->getInputFileName());
 
@@ -52,7 +51,7 @@ function main(ParamResolver $paramResolver) {
     $southAmericaCity = $filter->getSaCity();
     $australianCity   = $filter->getAuCity();
 
-    $outputDirectoryName = $fileHandler->prepareDir($paramResolver->getOutputDirectoryName());
+    $outputDirectoryName = $fileXlsx->prepareDir($paramResolver->getOutputDirectoryName());
 
     $counter->prepareCounterText($asianCity, 'Asian cities: %1')->writeDataToCounter($outputDirectoryName);
     $counter->prepareCounterText($europeanCity, 'European cities: %1')->writeDataToCounter($outputDirectoryName);

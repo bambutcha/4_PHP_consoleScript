@@ -9,12 +9,12 @@ class FileCsv extends FileHandler
 
     public function __construct(?string $outputFileFormat = self::DEFAULT_OUTPUT_FORMAT)
     {
-        parent::__construct();
+        $this->outputFileFormat = $outputFileFormat;
     }
 
     public function writeCsvData(array $entityBody, string $fileName, array $headers): self
     {
-        $filePath = $this->getFilePath($fileName);
+        $filePath = $this->getFilePath($fileName, $this->outputFileFormat);
         $outputFile = fopen($filePath, 'w');
 
         if (!$outputFile) {
