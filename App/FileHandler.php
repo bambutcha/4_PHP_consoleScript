@@ -20,4 +20,10 @@ class FileHandler
         mkdir($dirName);
         return $dirName;
     }
+
+    protected function getOutputName(string $fileName, string $outputFileFormat): string
+    {
+        $outputName = implode('.', [$fileName, $outputFileFormat]);
+        return $outputName;
+    }
 }

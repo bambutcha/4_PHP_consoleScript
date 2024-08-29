@@ -15,12 +15,14 @@ class FileXlsx extends FileHandler
 
     public function writeXlsxData(array $entityList, string $fileName, array $headers): self
     {
+        $OutputFileName = $this->getFilePath($fileName, $this->outputFileFormat);
+
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->fromArray(array_merge([$headers], $entityList), null, 'A1');
 
         $writer = new XlsxWriter($spreadsheet);
-        $writer->save($fileName);
+        $writer->save($OutputFileName);
 
         return $this;
     }
