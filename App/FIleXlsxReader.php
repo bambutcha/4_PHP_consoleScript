@@ -18,12 +18,20 @@ class FIleXlsxReader extends FileXlsx
     public function handleInputFile(): self
     {
         $reader      = new XlsxReader();
-        $spreadsheet = $reader->load($this->inputFileName);
+        $reader->setReadDataOnly(true);
 
-        $sheets = $spreadsheet->getAllSheets();
+        try{
+            $spreadsheet = $reader->load($this->inputFileName);
 
-        $this->entityList = current($sheets)->toArray();
-        $this->headers    = current($this->entityList);
+            $sheets = $spreadsheet->getAllSheets();
+
+            $this->entityList = current($sheets)->toArray();
+            $this->headers    = current($this->entityList);
+        } catch (\Exception $exception) {
+            throw new \RuntimeException('Error reading XLSX file: ' . $exception->getMessage());
+        } finally {
+            unset($reader);
+        }
 
         return $this;
     }

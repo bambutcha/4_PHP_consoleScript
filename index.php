@@ -22,6 +22,7 @@ $paramResolver = new ParamResolver($params);
 main($paramResolver);
 
 function main(ParamResolver $paramResolver) {
+    ini_set('memory_limit', '512M');
     $entityList = [];
     $headers    = [];
     $counter    = new Counter();
