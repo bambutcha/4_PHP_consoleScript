@@ -12,7 +12,7 @@ class FileCsv extends FileHandler
         $this->outputFileFormat = $outputFileFormat;
     }
 
-    public function writeCsvData(array $entityBody, string $fileName, array $headers): self
+    public function writeData(array $entityBody, string $fileName, array $headers): FileHandler
     {
         $filePath = $this->getFilePath($fileName, $this->outputFileFormat);
         $outputFile = fopen($filePath, 'w');

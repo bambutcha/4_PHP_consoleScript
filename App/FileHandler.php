@@ -2,10 +2,12 @@
 
 namespace App;
 
-class FileHandler
+abstract class FileHandler
 {
     public const DEFAULT_OUTPUT_DIR_NAME = 'output';
     public const DEFAULT_OUTPUT_FORMAT = 'csv';
+
+    abstract public function writeData(array $entityList, string $fileName, array $headers): self;
 
     protected function getFilePath(string $fileName, string $outputFileFormat): string
     {

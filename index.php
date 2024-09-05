@@ -22,7 +22,6 @@ $paramResolver = new ParamResolver($params);
 main($paramResolver);
 
 function main(ParamResolver $paramResolver) {
-    ini_set('memory_limit', '512M');
     $entityList = [];
     $headers    = [];
     $counter    = new Counter();
@@ -62,23 +61,23 @@ function main(ParamResolver $paramResolver) {
     $counter->prepareCounterText($australianCity, 'Australian cities: %1')->writeDataToCounter($outputDirectoryName);
 
     if ($paramResolver->getOutputFileFormat() === 'csv') {
-        $fileCsv->writeCsvData($saintWordEntities, 'saint_word_entities', $headers);
-        $fileCsv->writeCsvData($sameCharacterCityCountry, 'same_character_city_country', $headers);
-        $fileCsv->writeCsvData($asianCity, 'asian_city', $headers);
-        $fileCsv->writeCsvData($europeanCity, 'european_city', $headers);
-        $fileCsv->writeCsvData($africanCity, 'african_city', $headers);
-        $fileCsv->writeCsvData($northAmericaCity, 'north_american_city', $headers);
-        $fileCsv->writeCsvData($southAmericaCity, 'south_american_city', $headers);
-        $fileCsv->writeCsvData($australianCity, 'australian_city', $headers);
+        $fileCsv->writeData($saintWordEntities, 'saint_word_entities', $headers);
+        $fileCsv->writeData($sameCharacterCityCountry, 'same_character_city_country', $headers);
+        $fileCsv->writeData($asianCity, 'asian_city', $headers);
+        $fileCsv->writeData($europeanCity, 'european_city', $headers);
+        $fileCsv->writeData($africanCity, 'african_city', $headers);
+        $fileCsv->writeData($northAmericaCity, 'north_american_city', $headers);
+        $fileCsv->writeData($southAmericaCity, 'south_american_city', $headers);
+        $fileCsv->writeData($australianCity, 'australian_city', $headers);
     } elseif ($paramResolver->getOutputFileFormat() === 'xlsx') {
-        $fileXlsx->writeXlsxData($saintWordEntities, 'saint_word_entities', $headers);
-        $fileXlsx->writeXlsxData($sameCharacterCityCountry, 'same_character_city_country', $headers);
-        $fileXlsx->writeXlsxData($asianCity, 'asian_city', $headers);
-        $fileXlsx->writeXlsxData($europeanCity, 'european_city', $headers);
-        $fileXlsx->writeXlsxData($africanCity, 'african_city', $headers);
-        $fileXlsx->writeXlsxData($northAmericaCity, 'north_american_city', $headers);
-        $fileXlsx->writeXlsxData($southAmericaCity, 'south_american_city', $headers);
-        $fileXlsx->writeXlsxData($australianCity, 'australian_city', $headers);
+        $fileXlsx->writeData($saintWordEntities, 'saint_word_entities', $headers);
+        $fileXlsx->writeData($sameCharacterCityCountry, 'same_character_city_country', $headers);
+        $fileXlsx->writeData($asianCity, 'asian_city', $headers);
+        $fileXlsx->writeData($europeanCity, 'european_city', $headers);
+        $fileXlsx->writeData($africanCity, 'african_city', $headers);
+        $fileXlsx->writeData($northAmericaCity, 'north_american_city', $headers);
+        $fileXlsx->writeData($southAmericaCity, 'south_american_city', $headers);
+        $fileXlsx->writeData($australianCity, 'australian_city', $headers);
     }
 
 

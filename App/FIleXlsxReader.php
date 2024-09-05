@@ -2,11 +2,12 @@
 namespace App;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
+use RuntimeException;
+use Exception;
 
 class FIleXlsxReader extends FileXlsx
 {
     protected $inputFileName;
-    #protected $outputFileName;
     protected $headers;
     protected $entityList;
 
@@ -17,7 +18,7 @@ class FIleXlsxReader extends FileXlsx
 
     public function handleInputFile(): self
     {
-        $reader      = new XlsxReader();
+        $reader = new XlsxReader();
         $reader->setReadDataOnly(true);
 
         try{
@@ -27,8 +28,8 @@ class FIleXlsxReader extends FileXlsx
 
             $this->entityList = current($sheets)->toArray();
             $this->headers    = current($this->entityList);
-        } catch (\Exception $exception) {
-            throw new \RuntimeException('Error reading XLSX file: ' . $exception->getMessage());
+        } catch (Exception $exception) {
+            throw new RuntimeException("Error reading XLSX file: {$exception->getMessage()}");
         } finally {
             unset($reader);
         }
