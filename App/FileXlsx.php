@@ -27,5 +27,4 @@ class FileXlsx extends FileHandler
 
         return $this;
     }
-
 }

@@ -31,6 +31,4 @@ class FileCsv extends FileHandler
 
         return $this;
     }
-
 }
-

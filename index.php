@@ -79,6 +79,4 @@ function main(ParamResolver $paramResolver) {
         $fileXlsx->writeData($southAmericaCity, 'south_american_city', $headers);
         $fileXlsx->writeData($australianCity, 'australian_city', $headers);
     }
-
-
 }

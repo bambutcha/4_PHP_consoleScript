@@ -30,8 +30,6 @@ class FIleXlsxReader extends FileXlsx
             $this->headers    = current($this->entityList);
         } catch (Exception $exception) {
             throw new RuntimeException("Error reading XLSX file: {$exception->getMessage()}");
-        } finally {
-            unset($reader);
         }
 
         return $this;

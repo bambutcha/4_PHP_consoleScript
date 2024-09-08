@@ -42,5 +42,4 @@ class ParamResolver
 
         return $this->inputFileFormat;
     }
-
 }
